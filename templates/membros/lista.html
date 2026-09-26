@@ -1,12 +1,29 @@
 {% extends "base.html" %}
-{% block titulo %}Membros{% endblock %}
+{% block titulo %}Equipe{% endblock %}
 {% block conteudo %}
-  <h1>Membros</h1>
-  {% for membro in membros %}
-    <div class="card">
-      <h3><a href="{{ url_for('detalhe_membro', pessoa_id=membro.id) }}">{{ membro.nome }}</a></h3>
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <p class="eyebrow eyebrow-dark"><span class="eyebrow-mark"></span> Pessoas</p>
+      <h1>Equipe</h1>
+      <p>As pessoas, funções e projetos que formam Os Inquebráveis.</p>
     </div>
-  {% else %}
-    <p>Nenhum membro cadastrado ainda.</p>
-  {% endfor %}
+    <span class="page-number">03</span>
+  </div>
+</section>
+<section class="section section-light section-top">
+  <div class="container">
+    <div class="people-directory">
+      {% for membro in membros %}
+      <a class="directory-person" href="{{ url_for('detalhe_membro', pessoa_id=membro.id) }}">
+        <span class="person-avatar person-avatar-large">{{ membro.nome[:1]|upper }}</span>
+        <div><h2>{{ membro.nome }}</h2>{% if membro.resumo %}<p>{{ membro.resumo|truncate(120) }}</p>{% endif %}</div>
+        <span class="directory-arrow">↗</span>
+      </a>
+      {% else %}
+      <div class="empty-state">Nenhum membro cadastrado ainda.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 {% endblock %}

@@ -1,26 +1,72 @@
 {% extends "base.html" %}
 {% block titulo %}{{ projeto.nome }}{% endblock %}
 {% block conteudo %}
-  <h1>{{ projeto.nome }}</h1>
-  <p>Área: {{ projeto.area }}</p>
-  <p>{{ projeto.descricao }}</p>
+<section class="detail-hero">
+  <div class="container">
+    <a class="back-link" href="{{ url_for('lista_projetos') }}">← Projetos</a>
+    <div class="detail-kicker"><span class="tag">{{ projeto.area }}</span></div>
+    <h1>{{ projeto.nome }}</h1>
+    
+  </div>
+</section>
 
-  {% if projeto.competicoes %}
-    <h2 style="margin-top:1.5rem">Competições</h2>
-    {% for competicao in projeto.competicoes %}
-      <div class="card">
-        <h3><a href="{{ url_for('detalhe_competicao', competicao_id=competicao.id) }}">{{ competicao.categoria }} — {{ competicao.ano }}</a></h3>
+<section class="section section-light section-top">
+  <div class="container detail-layout">
+    <main>
+      <div class="content-label">PROJETO</div>
+      {% if projeto.descricao %}
+      <div class="prose"><p>{{ projeto.descricao }}</p></div>
+      {% endif %}
+    </main>
+    <aside class="detail-aside">
+      <div class="aside-block">
+        <span class="aside-label">Área</span>
+        <strong>{{ projeto.area }}</strong>
       </div>
-    {% endfor %}
-  {% endif %}
+      <div class="aside-block">
+        <span class="aside-label">Competições</span>
+        <strong>{{ projeto.competicoes|length }}</strong>
+      </div>
+      <div class="aside-block">
+        <span class="aside-label">Equipe</span>
+        <strong>{{ projeto.pessoas_assoc|length }}</strong>
+      </div>
+    </aside>
+  </div>
+</section>
 
-  {% if projeto.pessoas_assoc %}
-    <h2 style="margin-top:1.5rem">Equipe do projeto</h2>
-    {% for vinculo in projeto.pessoas_assoc %}
-      <div class="card">
-        <h3>{{ vinculo.pessoa.nome }}</h3>
-        <p>{{ vinculo.funcao }}</p>
+{% if projeto.competicoes or projeto.pessoas_assoc %}
+<section class="section section-light section-related">
+  <div class="container related-grid">
+    {% if projeto.competicoes %}
+    <div>
+      <div class="content-label">COMPETIÇÕES</div>
+      <div class="stack-list">
+        {% for competicao in projeto.competicoes %}
+        <a class="related-row" href="{{ url_for('detalhe_competicao', competicao_id=competicao.id) }}">
+          <span>{{ competicao.ano }}</span>
+          <div><strong>{{ competicao.categoria }}</strong><small>{{ competicao.congresso }}</small></div>
+          <b>↗</b>
+        </a>
+        {% endfor %}
       </div>
-    {% endfor %}
-  {% endif %}
+    </div>
+    {% endif %}
+    {% if projeto.pessoas_assoc %}
+    <div>
+      <div class="content-label">EQUIPE DO PROJETO</div>
+      <div class="stack-list">
+        {% for vinculo in projeto.pessoas_assoc %}
+        <a class="related-row" href="{{ url_for('detalhe_membro', pessoa_id=vinculo.pessoa.id) }}">
+          <span class="person-mini">{{ vinculo.pessoa.nome[:1]|upper }}</span>
+          <div><strong>{{ vinculo.pessoa.nome }}</strong><small>{{ vinculo.funcao or 'Membro da equipe' }}</small></div>
+          <b>↗</b>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endif %}
 {% endblock %}

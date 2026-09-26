@@ -5,6 +5,12 @@
             "driver": "SQLite",
             "database": "site_equipe.db",
             "name": "banco_inquebraveis"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "site",
+            "database": "site_equipe.db"
         }
     ]
 }

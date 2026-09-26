@@ -1,48 +1,126 @@
 {% extends "base.html" %}
 {% block titulo %}Início{% endblock %}
 {% block conteudo %}
-  <h1>Equipe</h1>
-
-  <h2>Últimas notícias</h2>
-  {% for noticia in noticias %}
-    <div class="card">
-      <h3><a href="{{ url_for('detalhe_noticia', slug=noticia.slug) }}">{{ noticia.titulo }}</a></h3>
-      <p>{{ noticia.resumo }}</p>
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="eyebrow-mark"></span> IFSP · Caraguatatuba</p>
+      <h1>OS<br><span>INQUEBRÁVEIS</span></h1>
+      <p class="hero-lead">Projetos, competições e pessoas que constroem a trajetória da equipe.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="{{ url_for('lista_projetos') }}">Explorar projetos <span>↗</span></a>
+        <a class="btn btn-ghost-light" href="{{ url_for('lista_competicoes') }}">Ver competições</a>
+      </div>
     </div>
-  {% else %}
-    <p>Nenhuma notícia cadastrada ainda.</p>
-  {% endfor %}
-  <a class="btn" href="{{ url_for('lista_noticias') }}">Ver todas as notícias</a>
-
-  <h2 style="margin-top:2rem">Projetos em destaque</h2>
-  {% for projeto in projetos %}
-    <div class="card">
-      <h3><a href="{{ url_for('detalhe_projeto', slug=projeto.slug) }}">{{ projeto.nome }}</a></h3>
-      <p>Área: {{ projeto.area }}</p>
+    <div class="hero-mark" aria-hidden="true">
+    <img src="{{ url_for('static', filename='img/logomarca-equipe.png') }}" class="hero-logo" alt="">
     </div>
-  {% else %}
-    <p>Nenhum projeto cadastrado ainda.</p>
-  {% endfor %}
-  <a class="btn" href="{{ url_for('lista_projetos') }}">Ver todos os projetos</a>
-
-  <h2 style="margin-top:2rem">Competição atual</h2>
-  {% for competicao in competicoes %}
-    <div class="card">
-      <h3>{{ competicao.categoria }} — {{ competicao.ano }}</h3>
-      <p>{{ competicao.congresso }}</p>
     </div>
-  {% else %}
-    <p>Nenhuma competição cadastrada ainda.</p>
-  {% endfor %}
-  <a class="btn" href="{{ url_for('lista_competicoes') }}">Ver histórico de competições</a>
+  </div>
+</section>
 
-  <h2 style="margin-top:2rem">Membros</h2>
-  {% for membro in membros %}
-    <div class="card">
-      <h3><a href="{{ url_for('detalhe_membro', pessoa_id=membro.id) }}">{{ membro.nome }}</a></h3>
+<section class="section section-light">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow eyebrow-dark"><span class="eyebrow-mark"></span> O que fazemos</p>
+        <h2>Projetos em movimento.</h2>
+      </div>
+      <a class="text-link" href="{{ url_for('lista_projetos') }}">Todos os projetos <span>→</span></a>
     </div>
-  {% else %}
-    <p>Nenhum membro cadastrado ainda.</p>
-  {% endfor %}
-  <a class="btn" href="{{ url_for('lista_membros') }}">Ver todos os membros</a>
+
+    <div class="project-grid">
+      {% for projeto in projetos %}
+      <a class="project-card" href="{{ url_for('detalhe_projeto', slug=projeto.slug) }}">
+        <div class="card-index">0{{ loop.index }}</div>
+        <div class="card-content">
+          <span class="tag">{{ projeto.area }}</span>
+          <h3>{{ projeto.nome }}</h3>
+          {% if projeto.descricao %}<p>{{ projeto.descricao|truncate(150) }}</p>{% endif %}
+        </div>
+        <span class="card-arrow">↗</span>
+      </a>
+      {% else %}
+      <div class="empty-state">Nenhum projeto cadastrado ainda.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-dark">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-mark"></span> Trajetória</p>
+        <h2>Competições</h2>
+      </div>
+      <a class="text-link text-link-light" href="{{ url_for('lista_competicoes') }}">Histórico completo <span>→</span></a>
+    </div>
+
+    {% for competicao in competicoes %}
+    <a class="competition-feature" href="{{ url_for('detalhe_competicao', competicao_id=competicao.id) }}">
+      <div class="competition-year">{{ competicao.ano }}</div>
+      <div class="competition-main">
+        <span class="tag tag-outline">{{ competicao.categoria }}</span>
+        <h3>{{ competicao.congresso }}</h3>
+      </div>
+      <span class="large-arrow">↗</span>
+    </a>
+    {% else %}
+    <div class="empty-state empty-state-dark">Nenhuma competição cadastrada ainda.</div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section section-light">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow eyebrow-dark"><span class="eyebrow-mark"></span> Pessoas</p>
+        <h2>Quem faz acontecer.</h2>
+      </div>
+      <a class="text-link" href="{{ url_for('lista_membros') }}">Conhecer a equipe <span>→</span></a>
+    </div>
+
+    <div class="people-grid">
+      {% for membro in membros %}
+      <a class="person-card" href="{{ url_for('detalhe_membro', pessoa_id=membro.id) }}">
+        <div class="person-avatar">{{ membro.nome[:1]|upper }}</div>
+        <div>
+          <h3>{{ membro.nome }}</h3>
+          {% if membro.resumo %}<p>{{ membro.resumo|truncate(90) }}</p>{% endif %}
+        </div>
+        <span>↗</span>
+      </a>
+      {% else %}
+      <div class="empty-state">Nenhum membro cadastrado ainda.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section news-strip">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-mark"></span> Atualizações</p>
+        <h2>Últimas notícias.</h2>
+      </div>
+      <a class="text-link text-link-light" href="{{ url_for('lista_noticias') }}">Todas as notícias <span>→</span></a>
+    </div>
+    <div class="news-grid">
+      {% for noticia in noticias %}
+      <a class="news-card" href="{{ url_for('detalhe_noticia', slug=noticia.slug) }}">
+        <time datetime="{{ noticia.data_publicacao }}">{{ noticia.data_publicacao.strftime('%d.%m.%Y') }}</time>
+        <h3>{{ noticia.titulo }}</h3>
+        {% if noticia.resumo %}<p>{{ noticia.resumo }}</p>{% endif %}
+        <span class="news-arrow">Ler notícia →</span>
+      </a>
+      {% else %}
+      <div class="empty-state empty-state-dark">Nenhuma notícia cadastrada ainda.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 {% endblock %}

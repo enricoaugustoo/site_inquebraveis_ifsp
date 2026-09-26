@@ -1,42 +1,53 @@
 {% extends "base.html" %}
 {% block titulo %}{{ pessoa.nome }}{% endblock %}
 {% block conteudo %}
-  <h1>{{ pessoa.nome }}</h1>
-  {% if pessoa.resumo %}<p>{{ pessoa.resumo }}</p>{% endif %}
-
-  {% if pessoa.linkedin_url or pessoa.github_url or pessoa.portfolio_url %}
-    <p style="margin-top:1rem">
-      {% if pessoa.linkedin_url %}<a class="btn" href="{{ pessoa.linkedin_url }}" target="_blank" rel="noopener">LinkedIn</a>{% endif %}
-      {% if pessoa.github_url %}<a class="btn" href="{{ pessoa.github_url }}" target="_blank" rel="noopener">GitHub</a>{% endif %}
-      {% if pessoa.portfolio_url %}<a class="btn" href="{{ pessoa.portfolio_url }}" target="_blank" rel="noopener">Portfólio</a>{% endif %}
-    </p>
-  {% endif %}
-
-  <h2 style="margin-top:2rem">Projetos</h2>
-  {% for vinculo in pessoa.projetos_assoc %}
-    <div class="card">
-      <h3><a href="{{ url_for('detalhe_projeto', slug=vinculo.projeto.slug) }}">{{ vinculo.projeto.nome }}</a></h3>
-      <p>{{ vinculo.funcao }}</p>
-      {% if vinculo.projeto.competicoes %}
-        <p style="padding-left:0.6rem">
-          Competições:
-          {% for competicao in vinculo.projeto.competicoes %}
-            <a href="{{ url_for('detalhe_competicao', competicao_id=competicao.id) }}">{{ competicao.categoria }} {{ competicao.ano }}</a>{% if not loop.last %}, {% endif %}
-          {% endfor %}
-        </p>
-      {% endif %}
+<section class="person-hero">
+  <div class="container person-hero-inner">
+    <a class="back-link" href="{{ url_for('lista_membros') }}">← Equipe</a>
+    <div class="person-avatar person-avatar-xl">{{ pessoa.nome[:1]|upper }}</div>
+    <h1>{{ pessoa.nome }}</h1>
+    {% if pessoa.resumo %}<p>{{ pessoa.resumo }}</p>{% endif %}
+    {% if pessoa.linkedin_url or pessoa.github_url or pessoa.portfolio_url %}
+    <div class="social-links">
+      {% if pessoa.linkedin_url %}<a href="{{ pessoa.linkedin_url }}" target="_blank" rel="noopener">LinkedIn ↗</a>{% endif %}
+      {% if pessoa.github_url %}<a href="{{ pessoa.github_url }}" target="_blank" rel="noopener">GitHub ↗</a>{% endif %}
+      {% if pessoa.portfolio_url %}<a href="{{ pessoa.portfolio_url }}" target="_blank" rel="noopener">Portfólio ↗</a>{% endif %}
+      {% if pessoa.lattes_url %}<a href="{{ pessoa.lattes_url }}" target="_blank" rel="noopener">Lattes ↗</a>{% endif %}
     </div>
-  {% else %}
-    <p>Nenhum projeto vinculado ainda.</p>
-  {% endfor %}
+    {% endif %}
+  </div>
+</section>
 
-  {% if pessoa.competicoes_assoc %}
-    <h2 style="margin-top:2rem">Outras participações em competições</h2>
-    {% for vinculo in pessoa.competicoes_assoc %}
-      <div class="card">
-        <h3><a href="{{ url_for('detalhe_competicao', competicao_id=vinculo.competicao.id) }}">{{ vinculo.competicao.categoria }} — {{ vinculo.competicao.ano }}</a></h3>
-        <p>{{ vinculo.funcao }}</p>
+<section class="section section-light section-top">
+  <div class="container related-grid">
+    <div>
+      <div class="content-label">PROJETOS</div>
+      <div class="stack-list">
+        {% for vinculo in pessoa.projetos_assoc %}
+        <a class="related-row related-row-large" href="{{ url_for('detalhe_projeto', slug=vinculo.projeto.slug) }}">
+          <span class="row-number">0{{ loop.index }}</span>
+          <div><strong>{{ vinculo.projeto.nome }}</strong><small>{{ vinculo.funcao or vinculo.projeto.area }}</small></div>
+          <b>↗</b>
+        </a>
+        {% else %}
+        <div class="empty-state">Nenhum projeto vinculado ainda.</div>
+        {% endfor %}
       </div>
-    {% endfor %}
-  {% endif %}
+    </div>
+    <div>
+      <div class="content-label">COMPETIÇÕES</div>
+      <div class="stack-list">
+        {% for vinculo in pessoa.competicoes_assoc %}
+        <a class="related-row" href="{{ url_for('detalhe_competicao', competicao_id=vinculo.competicao.id) }}">
+          <span class="row-number">{{ vinculo.competicao.ano }}</span>
+          <div><strong>{{ vinculo.competicao.categoria }}</strong><small>{{ vinculo.funcao or vinculo.competicao.congresso }}</small></div>
+          <b>↗</b>
+        </a>
+        {% else %}
+        <div class="empty-state">Nenhuma participação direta cadastrada.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}

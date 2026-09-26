@@ -1,25 +1,44 @@
 {% extends "base.html" %}
-{% block titulo %}{{ competicao.categoria }}{% endblock %}
+{% block titulo %}{{ competicao.categoria }} {{ competicao.ano }}{% endblock %}
 {% block conteudo %}
-  <h1>{{ competicao.categoria }} — {{ competicao.ano }}</h1>
-  <p>{{ competicao.congresso }}</p>
+<section class="detail-hero detail-hero-dark">
+  <div class="container">
+    <a class="back-link back-link-light" href="{{ url_for('lista_competicoes') }}">← Competições</a>
+    <div class="detail-meta"><span>{{ competicao.ano }}</span><span>{{ competicao.categoria }}</span></div>
+    <h1>{{ competicao.congresso }}</h1>
+  </div>
+</section>
 
-  <h2 style="margin-top:1.5rem">Projetos nesta competição</h2>
-  {% for projeto in competicao.projetos %}
-    <div class="card">
-      <h3><a href="{{ url_for('detalhe_projeto', slug=projeto.slug) }}">{{ projeto.nome }}</a></h3>
-    </div>
-  {% else %}
-    <p>Nenhum projeto vinculado ainda.</p>
-  {% endfor %}
-
-  {% if competicao.pessoas_assoc %}
-    <h2 style="margin-top:1.5rem">Organização e apoio</h2>
-    {% for vinculo in competicao.pessoas_assoc %}
-      <div class="card">
-        <h3>{{ vinculo.pessoa.nome }}</h3>
-        <p>{{ vinculo.funcao }}</p>
+<section class="section section-light section-top">
+  <div class="container related-grid">
+    <div>
+      <div class="content-label">PROJETOS NESTA COMPETIÇÃO</div>
+      <div class="stack-list">
+        {% for projeto in competicao.projetos %}
+        <a class="related-row related-row-large" href="{{ url_for('detalhe_projeto', slug=projeto.slug) }}">
+          <span class="row-number">{{ "%02d"|format(loop.index) }}</span>
+          <div><strong>{{ projeto.nome }}</strong><small>{{ projeto.area }}</small></div>
+          <b>↗</b>
+        </a>
+        {% else %}
+        <div class="empty-state">Nenhum projeto vinculado ainda.</div>
+        {% endfor %}
       </div>
-    {% endfor %}
-  {% endif %}
+    </div>
+    <div>
+      <div class="content-label">PESSOAS</div>
+      <div class="stack-list">
+        {% for vinculo in competicao.pessoas_assoc %}
+        <a class="related-row" href="{{ url_for('detalhe_membro', pessoa_id=vinculo.pessoa.id) }}">
+          <span class="person-mini">{{ vinculo.pessoa.nome[:1]|upper }}</span>
+          <div><strong>{{ vinculo.pessoa.nome }}</strong><small>{{ vinculo.funcao or 'Participação na competição' }}</small></div>
+          <b>↗</b>
+        </a>
+        {% else %}
+        <div class="empty-state">Nenhuma pessoa vinculada diretamente ainda.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}

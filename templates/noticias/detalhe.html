@@ -1,7 +1,17 @@
 {% extends "base.html" %}
 {% block titulo %}{{ noticia.titulo }}{% endblock %}
 {% block conteudo %}
-  <h1>{{ noticia.titulo }}</h1>
-  <p>{{ noticia.data_publicacao }}</p>
-  <p>{{ noticia.conteudo }}</p>
+<section class="article-hero">
+  <div class="container article-container">
+    <a class="back-link" href="{{ url_for('lista_noticias') }}">← Notícias</a>
+    <time>{{ noticia.data_publicacao.strftime('%d.%m.%Y') }}</time>
+    <h1>{{ noticia.titulo }}</h1>
+    {% if noticia.resumo %}<p>{{ noticia.resumo }}</p>{% endif %}
+  </div>
+</section>
+<section class="section section-light section-top">
+  <article class="container prose article-body">
+    {{ noticia.conteudo|e|replace('\n', '<br>')|safe }}
+  </article>
+</section>
 {% endblock %}

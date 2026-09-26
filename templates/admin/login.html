@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login — Admin</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login — Os Inquebráveis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-  <div class="wrap" style="max-width:360px;margin-top:4rem">
-    <h1>Área restrita</h1>
-    <form class="admin-form" method="post">
+<body class="login-page">
+  <div class="login-box">
+    <a class="brand" href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logomarca-equipe.png') }}" alt="Os Inquebráveis"></a>
+    <p class="eyebrow eyebrow-dark"><span class="eyebrow-mark"></span> Área restrita</p>
+    <h1>Entrar.</h1>
+    <p>Use a senha administrativa para gerenciar o conteúdo do site.</p>
+    <form class="admin-form" style="margin-top:1.5rem;padding:0;border:0;background:transparent" method="post">
       <label for="senha">Senha</label>
       <input type="password" id="senha" name="senha" required autofocus>
       {% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
-      <div class="acoes">
-        <button class="btn" type="submit">Entrar</button>
-      </div>
+      <div class="acoes"><button class="btn btn-primary" type="submit">Entrar <span>→</span></button></div>
     </form>
   </div>
 </body>

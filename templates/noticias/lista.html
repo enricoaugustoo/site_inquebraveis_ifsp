@@ -1,13 +1,29 @@
 {% extends "base.html" %}
 {% block titulo %}Notícias{% endblock %}
 {% block conteudo %}
-  <h1>Notícias</h1>
-  {% for noticia in noticias %}
-    <div class="card">
-      <h3><a href="{{ url_for('detalhe_noticia', slug=noticia.slug) }}">{{ noticia.titulo }}</a></h3>
-      <p>{{ noticia.data_publicacao }} — {{ noticia.resumo }}</p>
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <p class="eyebrow eyebrow-dark"><span class="eyebrow-mark"></span> Atualizações</p>
+      <h1>Notícias</h1>
+      <p>Novidades, registros e momentos da equipe.</p>
     </div>
-  {% else %}
-    <p>Nenhuma notícia cadastrada ainda.</p>
-  {% endfor %}
+    <span class="page-number">04</span>
+  </div>
+</section>
+<section class="section section-light section-top">
+  <div class="container">
+    <div class="news-directory">
+      {% for noticia in noticias %}
+      <a class="news-row" href="{{ url_for('detalhe_noticia', slug=noticia.slug) }}">
+        <time datetime="{{ noticia.data_publicacao }}">{{ noticia.data_publicacao.strftime('%d.%m.%Y') }}</time>
+        <div><h2>{{ noticia.titulo }}</h2>{% if noticia.resumo %}<p>{{ noticia.resumo }}</p>{% endif %}</div>
+        <span>↗</span>
+      </a>
+      {% else %}
+      <div class="empty-state">Nenhuma notícia cadastrada ainda.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 {% endblock %}

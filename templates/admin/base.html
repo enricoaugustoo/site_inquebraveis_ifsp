@@ -4,22 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin — {% block titulo %}{% endblock %}</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-  <nav class="principal">
-    <a href="{{ url_for('admin_dashboard') }}">Admin</a>
-    <a href="{{ url_for('admin_lista_pessoas') }}">Pessoas</a>
-    <a href="{{ url_for('admin_lista_projetos') }}">Projetos</a>
-    <a href="{{ url_for('admin_lista_competicoes') }}">Competições</a>
-    <a href="{{ url_for('admin_lista_noticias') }}">Notícias</a>
-    <a href="{{ url_for('admin_lista_patrocinadores') }}">Patrocinadores</a>
-    <a href="{{ url_for('home') }}">Ver site</a>
-    <a href="{{ url_for('admin_logout') }}">Sair</a>
-  </nav>
-  <div class="wrap">
+<body class="admin-shell">
+<header class="site-header admin-nav">
+  <div class="nav-shell">
+    <a class="brand" href="{{ url_for('admin_dashboard') }}" aria-label="Painel administrativo">
+      <img src="{{ url_for('static', filename='img/logomarca-equipe.png') }}" alt="Os Inquebráveis">
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Navegação administrativa">
+      <a href="{{ url_for('admin_dashboard') }}">Painel</a>
+      <a href="{{ url_for('admin_lista_pessoas') }}">Pessoas</a>
+      <a href="{{ url_for('admin_lista_projetos') }}">Projetos</a>
+      <a href="{{ url_for('admin_lista_competicoes') }}">Competições</a>
+      <a href="{{ url_for('admin_lista_noticias') }}">Notícias</a>
+      <a href="{{ url_for('admin_lista_patrocinadores') }}">Apoio</a>
+      <a href="{{ url_for('home') }}">Ver site ↗</a>
+      <a href="{{ url_for('admin_logout') }}">Sair</a>
+    </nav>
+  </div>
+</header>
+<main class="admin-main">
+  <div class="container">
     {% block conteudo %}{% endblock %}
   </div>
+</main>
+<script src="{{ url_for('static', filename='js/site.js') }}"></script>
 </body>
 </html>
