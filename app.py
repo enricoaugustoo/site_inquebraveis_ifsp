@@ -2,15 +2,18 @@ from flask import Flask
 
 from config import Config
 from database import db
+
 import routes
 import admin_routes
 
 
 def create_app():
     app = Flask(__name__)
+
     app.config.from_object(Config)
 
     db.init_app(app)
+
     routes.register_routes(app)
     admin_routes.register_admin_routes(app)
 
@@ -20,6 +23,8 @@ def create_app():
     return app
 
 
+app = create_app()
+
+
 if __name__ == "__main__":
-    app = create_app()
     app.run(debug=True)
