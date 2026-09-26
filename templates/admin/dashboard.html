@@ -1,0 +1,10 @@
+{% extends "admin/base.html" %}
+{% block titulo %}Painel{% endblock %}
+{% block conteudo %}
+  <h1>Painel de administração</h1>
+  <div class="card"><h3><a href="{{ url_for('admin_lista_pessoas') }}">Pessoas</a></h3></div>
+  <div class="card"><h3><a href="{{ url_for('admin_lista_projetos') }}">Projetos</a></h3></div>
+  <div class="card"><h3><a href="{{ url_for('admin_lista_competicoes') }}">Competições</a></h3></div>
+  <div class="card"><h3><a href="{{ url_for('admin_lista_noticias') }}">Notícias</a></h3></div>
+  <div class="card"><h3><a href="{{ url_for('admin_lista_patrocinadores') }}">Patrocinadores</a></h3></div>
+{% endblock %}

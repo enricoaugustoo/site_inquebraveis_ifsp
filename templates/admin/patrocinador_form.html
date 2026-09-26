@@ -1,0 +1,25 @@
+{% extends "admin/base.html" %}
+{% block titulo %}{{ "Editar patrocinador" if patrocinador else "Novo patrocinador" }}{% endblock %}
+{% block conteudo %}
+  <h1>{{ "Editar patrocinador" if patrocinador else "Novo patrocinador" }}</h1>
+  <form class="admin-form" method="post">
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" name="nome" value="{{ patrocinador.nome if patrocinador else '' }}" required>
+    <label for="nivel">Nível</label>
+    <input type="text" id="nivel" name="nivel" value="{{ patrocinador.nivel if patrocinador else '' }}" placeholder="ouro, prata, bronze...">
+    <label for="logo_url">URL do logo</label>
+    <input type="text" id="logo_url" name="logo_url" value="{{ patrocinador.logo_url if patrocinador else '' }}">
+    <label for="site_url">Site</label>
+    <input type="text" id="site_url" name="site_url" value="{{ patrocinador.site_url if patrocinador else '' }}">
+    <div class="acoes">
+      <button class="btn" type="submit">Salvar</button>
+      <a class="btn btn-secundario" href="{{ url_for('admin_lista_patrocinadores') }}">Cancelar</a>
+    </div>
+  </form>
+  {% if patrocinador %}
+    <form method="post" action="{{ url_for('admin_excluir_patrocinador', patrocinador_id=patrocinador.id) }}" style="margin-top:1rem"
+          onsubmit="return confirm('Excluir este patrocinador?');">
+      <button class="btn btn-perigo btn-small" type="submit">Excluir patrocinador</button>
+    </form>
+  {% endif %}
+{% endblock %}

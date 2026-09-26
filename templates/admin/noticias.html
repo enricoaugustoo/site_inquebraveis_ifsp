@@ -1,0 +1,18 @@
+{% extends "admin/base.html" %}
+{% block titulo %}Notícias{% endblock %}
+{% block conteudo %}
+  <h1>Notícias</h1>
+  <a class="btn" href="{{ url_for('admin_nova_noticia') }}">+ Nova notícia</a>
+  <table class="admin" style="margin-top:1.5rem">
+    <tr><th>Título</th><th>Data</th><th></th></tr>
+    {% for noticia in noticias %}
+    <tr>
+      <td>{{ noticia.titulo }}</td>
+      <td>{{ noticia.data_publicacao }}</td>
+      <td><a href="{{ url_for('admin_editar_noticia', noticia_id=noticia.id) }}">editar</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="3">Nenhuma notícia cadastrada.</td></tr>
+    {% endfor %}
+  </table>
+{% endblock %}

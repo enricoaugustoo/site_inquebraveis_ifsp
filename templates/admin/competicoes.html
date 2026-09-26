@@ -1,0 +1,19 @@
+{% extends "admin/base.html" %}
+{% block titulo %}Competições{% endblock %}
+{% block conteudo %}
+  <h1>Competições</h1>
+  <a class="btn" href="{{ url_for('admin_nova_competicao') }}">+ Nova competição</a>
+  <table class="admin" style="margin-top:1.5rem">
+    <tr><th>Categoria</th><th>Ano</th><th>Congresso</th><th></th></tr>
+    {% for competicao in competicoes %}
+    <tr>
+      <td>{{ competicao.categoria }}</td>
+      <td>{{ competicao.ano }}</td>
+      <td>{{ competicao.congresso }}</td>
+      <td><a href="{{ url_for('admin_editar_competicao', competicao_id=competicao.id) }}">editar</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="4">Nenhuma competição cadastrada.</td></tr>
+    {% endfor %}
+  </table>
+{% endblock %}

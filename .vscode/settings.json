@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "site_equipe.db",
+            "name": "banco_inquebraveis"
+        }
+    ]
+}

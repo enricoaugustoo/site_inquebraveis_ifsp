@@ -1,0 +1,87 @@
+:root{
+  --laranja:#E8622C;
+  --terracota:#B8542E;
+  --marrom:#3E2A20;
+  --grafite:#2B2B2B;
+  --cinza-claro:#E5E2DE;
+  --branco:#FAFAF8;
+  --linha:#D8D3CC;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--branco);
+  color:var(--grafite);
+  font-family:'Inter',system-ui,sans-serif;
+  line-height:1.55;
+}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;color:var(--marrom)}
+
+nav.principal{
+  background:var(--marrom);
+  padding:1rem 1.5rem;
+  display:flex;
+  gap:1.5rem;
+  flex-wrap:wrap;
+}
+nav.principal a{
+  color:var(--cinza-claro);
+  text-decoration:none;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.95rem;
+}
+nav.principal a:hover{color:var(--branco)}
+
+.wrap{max-width:960px;margin:0 auto;padding:2.5rem 1.5rem}
+
+.card{
+  border:1px solid var(--linha);
+  border-radius:8px;
+  padding:1.2rem;
+  margin-bottom:1rem;
+  position:relative;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;width:4px;height:100%;
+  background:var(--terracota);
+}
+.card h3{padding-left:0.6rem;margin-bottom:0.3rem}
+.card p{padding-left:0.6rem;color:#6b5e54;font-size:0.92rem}
+
+.btn{
+  display:inline-block;padding:0.6rem 1.2rem;border-radius:5px;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:0.9rem;
+  text-decoration:none;background:var(--laranja);color:var(--branco);
+  border:none;cursor:pointer;
+}
+.btn-secundario{background:transparent;color:var(--marrom);border:1.5px solid var(--marrom)}
+.btn-perigo{background:#a33a2a}
+.btn-small{padding:0.35rem 0.8rem;font-size:0.8rem}
+
+table.admin{width:100%;border-collapse:collapse;margin-bottom:1.5rem}
+table.admin th, table.admin td{
+  text-align:left;padding:0.6rem 0.7rem;border-bottom:1px solid var(--linha);font-size:0.92rem;
+}
+table.admin th{font-family:'Space Grotesk',sans-serif;color:var(--marrom)}
+
+form.admin-form{max-width:520px}
+form.admin-form label{
+  display:block;font-family:'Space Grotesk',sans-serif;font-size:0.85rem;
+  color:var(--marrom);margin:1rem 0 0.3rem;
+}
+form.admin-form input, form.admin-form select, form.admin-form textarea{
+  width:100%;padding:0.55rem 0.7rem;border:1px solid var(--linha);border-radius:5px;
+  font-family:'Inter',sans-serif;font-size:0.95rem;background:var(--branco);color:var(--grafite);
+}
+form.admin-form textarea{min-height:100px;resize:vertical}
+form.admin-form .acoes{margin-top:1.5rem;display:flex;gap:0.7rem}
+
+.linha-inline{display:flex;align-items:center;justify-content:space-between;
+  padding:0.6rem 0;border-bottom:1px solid var(--linha)}
+
+.erro{color:#a33a2a;font-size:0.9rem;margin-top:0.5rem}
+
+.form-adicionar{display:flex;gap:0.6rem;align-items:flex-end;margin:1rem 0 1.5rem;flex-wrap:wrap}
+.form-adicionar label{font-size:0.8rem;color:#6b5e54;display:block;margin-bottom:0.25rem}
+.form-adicionar select, .form-adicionar input{
+  padding:0.5rem 0.6rem;border:1px solid var(--linha);border-radius:5px;font-size:0.9rem;
+}

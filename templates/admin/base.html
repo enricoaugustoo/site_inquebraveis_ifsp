@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin — {% block titulo %}{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <nav class="principal">
+    <a href="{{ url_for('admin_dashboard') }}">Admin</a>
+    <a href="{{ url_for('admin_lista_pessoas') }}">Pessoas</a>
+    <a href="{{ url_for('admin_lista_projetos') }}">Projetos</a>
+    <a href="{{ url_for('admin_lista_competicoes') }}">Competições</a>
+    <a href="{{ url_for('admin_lista_noticias') }}">Notícias</a>
+    <a href="{{ url_for('admin_lista_patrocinadores') }}">Patrocinadores</a>
+    <a href="{{ url_for('home') }}">Ver site</a>
+    <a href="{{ url_for('admin_logout') }}">Sair</a>
+  </nav>
+  <div class="wrap">
+    {% block conteudo %}{% endblock %}
+  </div>
+</body>
+</html>

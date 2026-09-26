@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block titulo %}Início{% endblock %}
+{% block conteudo %}
+  <h1>Equipe</h1>
+
+  <h2>Últimas notícias</h2>
+  {% for noticia in noticias %}
+    <div class="card">
+      <h3><a href="{{ url_for('detalhe_noticia', slug=noticia.slug) }}">{{ noticia.titulo }}</a></h3>
+      <p>{{ noticia.resumo }}</p>
+    </div>
+  {% else %}
+    <p>Nenhuma notícia cadastrada ainda.</p>
+  {% endfor %}
+  <a class="btn" href="{{ url_for('lista_noticias') }}">Ver todas as notícias</a>
+
+  <h2 style="margin-top:2rem">Projetos em destaque</h2>
+  {% for projeto in projetos %}
+    <div class="card">
+      <h3><a href="{{ url_for('detalhe_projeto', slug=projeto.slug) }}">{{ projeto.nome }}</a></h3>
+      <p>Área: {{ projeto.area }}</p>
+    </div>
+  {% else %}
+    <p>Nenhum projeto cadastrado ainda.</p>
+  {% endfor %}
+  <a class="btn" href="{{ url_for('lista_projetos') }}">Ver todos os projetos</a>
+
+  <h2 style="margin-top:2rem">Competição atual</h2>
+  {% for competicao in competicoes %}
+    <div class="card">
+      <h3>{{ competicao.categoria }} — {{ competicao.ano }}</h3>
+      <p>{{ competicao.congresso }}</p>
+    </div>
+  {% else %}
+    <p>Nenhuma competição cadastrada ainda.</p>
+  {% endfor %}
+  <a class="btn" href="{{ url_for('lista_competicoes') }}">Ver histórico de competições</a>
+
+  <h2 style="margin-top:2rem">Membros</h2>
+  {% for membro in membros %}
+    <div class="card">
+      <h3><a href="{{ url_for('detalhe_membro', pessoa_id=membro.id) }}">{{ membro.nome }}</a></h3>
+    </div>
+  {% else %}
+    <p>Nenhum membro cadastrado ainda.</p>
+  {% endfor %}
+  <a class="btn" href="{{ url_for('lista_membros') }}">Ver todos os membros</a>
+{% endblock %}

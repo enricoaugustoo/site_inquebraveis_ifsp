@@ -1,0 +1,27 @@
+{% extends "admin/base.html" %}
+{% block titulo %}{{ "Editar notícia" if noticia else "Nova notícia" }}{% endblock %}
+{% block conteudo %}
+  <h1>{{ "Editar notícia" if noticia else "Nova notícia" }}</h1>
+  <form class="admin-form" method="post">
+    <label for="titulo">Título</label>
+    <input type="text" id="titulo" name="titulo" value="{{ noticia.titulo if noticia else '' }}" required>
+    <label for="slug">Slug (usado na URL)</label>
+    <input type="text" id="slug" name="slug" value="{{ noticia.slug if noticia else '' }}" required>
+    <label for="data_publicacao">Data de publicação</label>
+    <input type="date" id="data_publicacao" name="data_publicacao" value="{{ noticia.data_publicacao if noticia else '' }}" required>
+    <label for="resumo">Resumo</label>
+    <input type="text" id="resumo" name="resumo" value="{{ noticia.resumo if noticia else '' }}">
+    <label for="conteudo">Conteúdo</label>
+    <textarea id="conteudo" name="conteudo">{{ noticia.conteudo if noticia else '' }}</textarea>
+    <div class="acoes">
+      <button class="btn" type="submit">Salvar</button>
+      <a class="btn btn-secundario" href="{{ url_for('admin_lista_noticias') }}">Cancelar</a>
+    </div>
+  </form>
+  {% if noticia %}
+    <form method="post" action="{{ url_for('admin_excluir_noticia', noticia_id=noticia.id) }}" style="margin-top:1rem"
+          onsubmit="return confirm('Excluir esta notícia?');">
+      <button class="btn btn-perigo btn-small" type="submit">Excluir notícia</button>
+    </form>
+  {% endif %}
+{% endblock %}

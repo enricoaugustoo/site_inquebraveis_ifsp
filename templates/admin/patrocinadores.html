@@ -1,0 +1,18 @@
+{% extends "admin/base.html" %}
+{% block titulo %}Patrocinadores{% endblock %}
+{% block conteudo %}
+  <h1>Patrocinadores</h1>
+  <a class="btn" href="{{ url_for('admin_novo_patrocinador') }}">+ Novo patrocinador</a>
+  <table class="admin" style="margin-top:1.5rem">
+    <tr><th>Nome</th><th>Nível</th><th></th></tr>
+    {% for patrocinador in patrocinadores %}
+    <tr>
+      <td>{{ patrocinador.nome }}</td>
+      <td>{{ patrocinador.nivel }}</td>
+      <td><a href="{{ url_for('admin_editar_patrocinador', patrocinador_id=patrocinador.id) }}">editar</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="3">Nenhum patrocinador cadastrado.</td></tr>
+    {% endfor %}
+  </table>
+{% endblock %}

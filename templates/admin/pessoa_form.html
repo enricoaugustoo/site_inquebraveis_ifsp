@@ -1,0 +1,29 @@
+{% extends "admin/base.html" %}
+{% block titulo %}{{ "Editar pessoa" if pessoa else "Nova pessoa" }}{% endblock %}
+{% block conteudo %}
+  <h1>{{ "Editar pessoa" if pessoa else "Nova pessoa" }}</h1>
+  <form class="admin-form" method="post">
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" name="nome" value="{{ pessoa.nome if pessoa else '' }}" required>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" value="{{ pessoa.email if pessoa else '' }}" required>
+    <label for="resumo">Resumo (bio)</label>
+    <textarea id="resumo" name="resumo">{{ pessoa.resumo if pessoa else '' }}</textarea>
+    <label for="linkedin_url">LinkedIn</label>
+    <input type="text" id="linkedin_url" name="linkedin_url" value="{{ pessoa.linkedin_url if pessoa else '' }}" placeholder="https://linkedin.com/in/...">
+    <label for="github_url">GitHub</label>
+    <input type="text" id="github_url" name="github_url" value="{{ pessoa.github_url if pessoa else '' }}" placeholder="https://github.com/...">
+    <label for="portfolio_url">Portfólio</label>
+    <input type="text" id="portfolio_url" name="portfolio_url" value="{{ pessoa.portfolio_url if pessoa else '' }}">
+    <div class="acoes">
+      <button class="btn" type="submit">Salvar</button>
+      <a class="btn btn-secundario" href="{{ url_for('admin_lista_pessoas') }}">Cancelar</a>
+    </div>
+  </form>
+  {% if pessoa %}
+    <form method="post" action="{{ url_for('admin_excluir_pessoa', pessoa_id=pessoa.id) }}" style="margin-top:1rem"
+          onsubmit="return confirm('Excluir esta pessoa?');">
+      <button class="btn btn-perigo btn-small" type="submit">Excluir pessoa</button>
+    </form>
+  {% endif %}
+{% endblock %}

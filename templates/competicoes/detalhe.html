@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block titulo %}{{ competicao.categoria }}{% endblock %}
+{% block conteudo %}
+  <h1>{{ competicao.categoria }} — {{ competicao.ano }}</h1>
+  <p>{{ competicao.congresso }}</p>
+
+  <h2 style="margin-top:1.5rem">Projetos nesta competição</h2>
+  {% for projeto in competicao.projetos %}
+    <div class="card">
+      <h3><a href="{{ url_for('detalhe_projeto', slug=projeto.slug) }}">{{ projeto.nome }}</a></h3>
+    </div>
+  {% else %}
+    <p>Nenhum projeto vinculado ainda.</p>
+  {% endfor %}
+
+  {% if competicao.pessoas_assoc %}
+    <h2 style="margin-top:1.5rem">Organização e apoio</h2>
+    {% for vinculo in competicao.pessoas_assoc %}
+      <div class="card">
+        <h3>{{ vinculo.pessoa.nome }}</h3>
+        <p>{{ vinculo.funcao }}</p>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block titulo %}Competições{% endblock %}
+{% block conteudo %}
+  <h1>Competições</h1>
+  {% for competicao in competicoes %}
+    <div class="card">
+      <h3><a href="{{ url_for('detalhe_competicao', competicao_id=competicao.id) }}">{{ competicao.categoria }} — {{ competicao.ano }}</a></h3>
+      <p>{{ competicao.congresso }}</p>
+    </div>
+  {% else %}
+    <p>Nenhuma competição cadastrada ainda.</p>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login — Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="wrap" style="max-width:360px;margin-top:4rem">
+    <h1>Área restrita</h1>
+    <form class="admin-form" method="post">
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" name="senha" required autofocus>
+      {% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
+      <div class="acoes">
+        <button class="btn" type="submit">Entrar</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

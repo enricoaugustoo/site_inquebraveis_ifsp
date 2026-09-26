@@ -1,0 +1,72 @@
+{% extends "admin/base.html" %}
+{% block titulo %}{{ "Editar projeto" if projeto else "Novo projeto" }}{% endblock %}
+{% block conteudo %}
+  <h1>{{ "Editar projeto" if projeto else "Novo projeto" }}</h1>
+  <form class="admin-form" method="post">
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" name="nome" value="{{ projeto.nome if projeto else '' }}" required>
+    <label for="slug">Slug (usado na URL)</label>
+    <input type="text" id="slug" name="slug" value="{{ projeto.slug if projeto else '' }}" required>
+    <label for="area">Área</label>
+    <input type="text" id="area" name="area" value="{{ projeto.area if projeto else '' }}" placeholder="TI, Engenharia, Concreto, Dosagem..." required>
+    <label for="descricao">Descrição</label>
+    <textarea id="descricao" name="descricao">{{ projeto.descricao if projeto else '' }}</textarea>
+    <div class="acoes">
+      <button class="btn" type="submit">Salvar</button>
+      <a class="btn btn-secundario" href="{{ url_for('admin_lista_projetos') }}">Cancelar</a>
+    </div>
+  </form>
+
+  {% if projeto %}
+    <form method="post" action="{{ url_for('admin_excluir_projeto', projeto_id=projeto.id) }}" style="margin-top:1rem"
+          onsubmit="return confirm('Excluir este projeto?');">
+      <button class="btn btn-perigo btn-small" type="submit">Excluir projeto</button>
+    </form>
+
+    <h2 style="margin-top:2.5rem">Equipe do projeto</h2>
+    {% for vinculo in projeto.pessoas_assoc %}
+      <div class="linha-inline">
+        <span>{{ vinculo.pessoa.nome }} — {{ vinculo.funcao }}</span>
+        <form method="post" action="{{ url_for('admin_remove_membro_projeto', projeto_id=projeto.id, pessoa_id=vinculo.pessoa_id) }}">
+          <button class="btn btn-perigo btn-small" type="submit">Remover</button>
+        </form>
+      </div>
+    {% else %}
+      <p>Nenhum membro vinculado ainda.</p>
+    {% endfor %}
+    <form class="form-adicionar" method="post" action="{{ url_for('admin_add_membro_projeto', projeto_id=projeto.id) }}">
+      <div>
+        <label for="pessoa_id">Pessoa</label>
+        <select id="pessoa_id" name="pessoa_id" required>
+          {% for pessoa in pessoas %}<option value="{{ pessoa.id }}">{{ pessoa.nome }}</option>{% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="funcao">Função</label>
+        <input type="text" id="funcao" name="funcao" placeholder="líder, membro...">
+      </div>
+      <button class="btn btn-small" type="submit">Adicionar</button>
+    </form>
+
+    <h2 style="margin-top:2rem">Competições</h2>
+    {% for competicao in projeto.competicoes %}
+      <div class="linha-inline">
+        <span>{{ competicao.categoria }} — {{ competicao.ano }}</span>
+        <form method="post" action="{{ url_for('admin_remove_competicao_projeto', projeto_id=projeto.id, competicao_id=competicao.id) }}">
+          <button class="btn btn-perigo btn-small" type="submit">Remover</button>
+        </form>
+      </div>
+    {% else %}
+      <p>Nenhuma competição vinculada ainda.</p>
+    {% endfor %}
+    <form class="form-adicionar" method="post" action="{{ url_for('admin_add_competicao_projeto', projeto_id=projeto.id) }}">
+      <div>
+        <label for="competicao_id">Competição</label>
+        <select id="competicao_id" name="competicao_id" required>
+          {% for competicao in competicoes %}<option value="{{ competicao.id }}">{{ competicao.categoria }} — {{ competicao.ano }}</option>{% endfor %}
+        </select>
+      </div>
+      <button class="btn btn-small" type="submit">Vincular</button>
+    </form>
+  {% endif %}
+{% endblock %}

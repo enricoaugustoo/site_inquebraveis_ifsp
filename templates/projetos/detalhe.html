@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block titulo %}{{ projeto.nome }}{% endblock %}
+{% block conteudo %}
+  <h1>{{ projeto.nome }}</h1>
+  <p>Área: {{ projeto.area }}</p>
+  <p>{{ projeto.descricao }}</p>
+
+  {% if projeto.competicoes %}
+    <h2 style="margin-top:1.5rem">Competições</h2>
+    {% for competicao in projeto.competicoes %}
+      <div class="card">
+        <h3><a href="{{ url_for('detalhe_competicao', competicao_id=competicao.id) }}">{{ competicao.categoria }} — {{ competicao.ano }}</a></h3>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% if projeto.pessoas_assoc %}
+    <h2 style="margin-top:1.5rem">Equipe do projeto</h2>
+    {% for vinculo in projeto.pessoas_assoc %}
+      <div class="card">
+        <h3>{{ vinculo.pessoa.nome }}</h3>
+        <p>{{ vinculo.funcao }}</p>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Equipe{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <nav class="principal">
+    <a href="{{ url_for('home') }}">Início</a>
+    <a href="{{ url_for('lista_noticias') }}">Notícias</a>
+    <a href="{{ url_for('lista_projetos') }}">Projetos</a>
+    <a href="{{ url_for('lista_competicoes') }}">Competições</a>
+    <a href="{{ url_for('lista_membros') }}">Membros</a>
+    <a href="{{ url_for('lista_patrocinadores') }}">Patrocinadores</a>
+  </nav>
+  <div class="wrap">
+    {% block conteudo %}{% endblock %}
+  </div>
+</body>
+</html>

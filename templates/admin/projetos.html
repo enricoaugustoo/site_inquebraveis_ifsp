@@ -1,0 +1,18 @@
+{% extends "admin/base.html" %}
+{% block titulo %}Projetos{% endblock %}
+{% block conteudo %}
+  <h1>Projetos</h1>
+  <a class="btn" href="{{ url_for('admin_novo_projeto') }}">+ Novo projeto</a>
+  <table class="admin" style="margin-top:1.5rem">
+    <tr><th>Nome</th><th>Área</th><th></th></tr>
+    {% for projeto in projetos %}
+    <tr>
+      <td>{{ projeto.nome }}</td>
+      <td>{{ projeto.area }}</td>
+      <td><a href="{{ url_for('admin_editar_projeto', projeto_id=projeto.id) }}">editar</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="3">Nenhum projeto cadastrado.</td></tr>
+    {% endfor %}
+  </table>
+{% endblock %}

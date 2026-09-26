@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block titulo %}Membros{% endblock %}
+{% block conteudo %}
+  <h1>Membros</h1>
+  {% for membro in membros %}
+    <div class="card">
+      <h3><a href="{{ url_for('detalhe_membro', pessoa_id=membro.id) }}">{{ membro.nome }}</a></h3>
+    </div>
+  {% else %}
+    <p>Nenhum membro cadastrado ainda.</p>
+  {% endfor %}
+{% endblock %}

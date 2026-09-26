@@ -1,0 +1,18 @@
+{% extends "admin/base.html" %}
+{% block titulo %}Pessoas{% endblock %}
+{% block conteudo %}
+  <h1>Pessoas</h1>
+  <a class="btn" href="{{ url_for('admin_nova_pessoa') }}">+ Nova pessoa</a>
+  <table class="admin" style="margin-top:1.5rem">
+    <tr><th>Nome</th><th>Email</th><th></th></tr>
+    {% for pessoa in pessoas %}
+    <tr>
+      <td>{{ pessoa.nome }}</td>
+      <td>{{ pessoa.email }}</td>
+      <td><a href="{{ url_for('admin_editar_pessoa', pessoa_id=pessoa.id) }}">editar</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="3">Nenhuma pessoa cadastrada.</td></tr>
+    {% endfor %}
+  </table>
+{% endblock %}
