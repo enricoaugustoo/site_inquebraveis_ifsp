@@ -25,7 +25,7 @@ export const pessoas = [
     nome: "Enrico Augusto dos Santos Souza",
     setor: "",
     cargo: "",
-    email: "",
+    email: "enrico.a@aluno.ifsp.edu.br",
     resumo: "",
     linkedin: "",
     github: "",
