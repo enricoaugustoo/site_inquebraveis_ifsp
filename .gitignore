@@ -1,0 +1,22 @@
+node_modules
+dist
+# dependências (voltam com npm install)
+node_modules/
+
+# resultado do build (volta com npm run build)
+dist/
+
+# variáveis de ambiente e segredos
+.env
+.env.*
+
+# logs
+*.log
+npm-debug.log*
+
+# arquivos do sistema e do editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/*
