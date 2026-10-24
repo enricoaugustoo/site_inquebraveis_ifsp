@@ -28,9 +28,7 @@ export default function Apoio() {
               <div className="sponsor-grid">
                 {n.itens.map((p) => {
                   const caminhoLogo = p.logo
-                    ? p.logo.startsWith("apoio/")
-                      ? p.logo
-                      : `apoio/${p.logo}`
+                    ? p.logo.replace(/^\/+/, "").replace(/^img\//, "")
                     : "";
                   const logo = imagemUrl(caminhoLogo);
                   const conteudo = logo
