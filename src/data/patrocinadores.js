@@ -5,7 +5,6 @@
 // ⚠ Dados de EXEMPLO.
 // ─────────────────────────────────────────────────────────────
 export const patrocinadores = [
-  { nome: "IDEAL Grupo", nivel: "", logo: "ideal_logo.jpeg", site: "https://idealgrupo.com.br/" },
-  { nome: "Apoiador Exemplo 2", nivel: "Prata", logo: "", site: "" },
-  { nome: "", nivel: "Institucional", logo: "", site: "https://cgt.ifsp.edu.br" },
+  { nome: "IDEAL Grupo", nivel: "Prata", logo: "ideal_logo.jpeg", site: "https://idealgrupo.com.br/" },
+  { nome: "IFSP Caraguatatuba", nivel: "Institucional", logo: "", site: "https://cgt.ifsp.edu.br" },
 ];
